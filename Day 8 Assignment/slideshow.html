@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: #141414;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 42px;
+            letter-spacing: 2px;
+        }
+
+        img {
+            width: 650px;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 4px solid #e50914;
+            box-shadow:
+                0 0 20px rgba(229, 9, 20, .5),
+                0 0 50px rgba(229, 9, 20, .3);
+            transition: .4s;
+        }
+        img:hover {
+            transform: scale(1.03);
+        }
+        button {
+            padding: 12px 28px;
+            margin: 5px;
+            border: none;
+            border-radius: 30px;
+            background: #e50914;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: .3s;
+        }
+        button:hover {
+            background: white;
+            color: #e50914;
+            transform: translateY(-3px);
+        }
+        button:active {
+            transform: scale(.95);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Image Slideshow</h1>
+    <img id="slide" src="https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg">
+    <br>
+    <button onclick="previous()">Previous</button>
+    <button onclick="next()">Next</button>
+    <br>
+    <button onclick="start()">Start Slideshow</button>
+    <button onclick="stop()">Stop Slideshow</button>
+    <script>
+        let images = [
+            "https://image.tmdb.org/t/p/original/74hLDKjD5aGYOotO6esUVaeISa2.jpg",
+            "https://image.tmdb.org/t/p/original/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+            "https://image.tmdb.org/t/p/original/saHP97rTPS5eLmrLQEcANmKrsFl.jpg",
+            "https://image.tmdb.org/t/p/original/kGzFbGhp99zva6oZODW5atUtnqi.jpg",
+            "https://image.tmdb.org/t/p/original/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+            "https://image.tmdb.org/t/p/original/jQWbjSfnmjmDLrWz5J5QmZL3e1f.jpg",
+            "https://image.tmdb.org/t/p/original/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+            "https://image.tmdb.org/t/p/original/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+            "https://image.tmdb.org/t/p/original/8QVDXDiOGHRcAD4oM6MXjE0osSj.jpg",
+            "https://image.tmdb.org/t/p/original/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+            "https://image.tmdb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+            "https://image.tmdb.org/t/p/original/yXNVcG0C7Oymg9F9ecXa9MWVwj8.jpg",
+            "https://image.tmdb.org/t/p/original/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+            "https://image.tmdb.org/t/p/original/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+            "https://image.tmdb.org/t/p/original/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
+            "https://image.tmdb.org/t/p/original/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
+            "https://image.tmdb.org/t/p/original/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg",
+            "https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+            "https://image.tmdb.org/t/p/original/2CAL2433ZeIihfX1Hb2139CX0pW.jpg"
+        ];
+        let index = 0;
+        let img = document.querySelector("#slide");
+        let timer = null;
+        function start() {
+            if (timer != null) {
+                return;
+            }
+            timer = setInterval(function () {
+                index++;
+                if (index == images.length) {
+                    index = 0;
+                }
+                img.src = images[index];
+            }, 2000)
+        }
+        function stop() {
+            clearInterval(timer);
+            timer = null;
+        }
+        function next() {
+            stop();
+            index++;
+            if (index == images.length) {
+                index = 0;
+            }
+            img.src = images[index];
+        }
+        function previous() {
+            stop();
+            index--;
+            if (index < 0) {
+                index = images.length - 1;
+            }
+            img.src = images[index];
+        }
+    </script>
+</body>
+
+</html>
